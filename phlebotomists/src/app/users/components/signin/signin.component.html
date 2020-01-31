@@ -1,0 +1,15 @@
+<div class="login-form">
+  <h2 align="center">Sign in</h2>
+  <form [formGroup]="user">
+    <mat-form-field>
+      <input matInput placeholder="Enter your login" formControlName="login" name="login">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Enter your password" formControlName="password" type="password" name="password">
+    </mat-form-field>
+  </form>
+  <div class="login-controls">
+    <button mat-button (click)="signIn()"> Sign in </button>
+    <button mat-button [routerLink]="['/signup']" > Create an account </button>
+  </div>
+</div>
