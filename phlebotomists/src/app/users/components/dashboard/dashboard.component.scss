@@ -1,0 +1,7 @@
+$padding: 50px;
+
+.page-inner {
+  height: calc(100vh - #{$padding});
+  width: calc(100vw - #{$padding});
+  display: flex;
+}
