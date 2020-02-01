@@ -1,0 +1,11 @@
+<div class="page-inner">
+    <h2> Order creation </h2>
+    <form [formGroup]="order">
+        <mat-form-field>
+          <input matInput placeholder="Enter your login" formControlName="login" name="login">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Enter your password" formControlName="password" type="password" name="password">
+        </mat-form-field>
+      </form>
+</div>

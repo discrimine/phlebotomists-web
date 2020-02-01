@@ -67,6 +67,7 @@ export class SignupComponent implements OnInit, OnDestroy {
         subscription.unsubscribe();
       }
     });
+    this.equipmentList.complete();
   }
 
 }
