@@ -39,7 +39,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   public signUp(): void {
-    alert('done');
+    console.log(this.newUserInfo.getRawValue());
   }
 
   private catchErr(error): void {
@@ -67,6 +67,7 @@ export class SignupComponent implements OnInit, OnDestroy {
         subscription.unsubscribe();
       }
     });
+    this.equipmentList.complete();
   }
 
 }
