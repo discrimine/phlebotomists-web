@@ -7,11 +7,13 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { OrdersListComponent } from './components/orders-list/orders-list.component';
 import { AccountInfoComponent } from './components/account-info/account-info.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
+import { OrdersComponent } from './components/orders/orders.component';
 
 @NgModule({
   declarations: [
   OrdersListComponent,
-  AccountInfoComponent],
+  AccountInfoComponent,
+  OrdersComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

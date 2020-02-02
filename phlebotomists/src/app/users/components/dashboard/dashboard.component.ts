@@ -2,9 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
-import { CreateOrderDialogComponent } from '../../create-order-dialog/create-order-dialog.component';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { CreateOrderDialogComponent } from './components/create-order-dialog/create-order-dialog.component';
 
 @Component({
   selector: 'app-dashboard',

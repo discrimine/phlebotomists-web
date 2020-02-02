@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [],
@@ -18,6 +19,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatButtonModule,
     MatSelectModule,
     MatDialogModule,
+    MatTabsModule,
   ]
 })
 export class SharedModule { }
