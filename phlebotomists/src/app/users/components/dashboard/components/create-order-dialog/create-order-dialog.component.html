@@ -5,22 +5,29 @@
       <mat-form-field>
         <input matInput placeholder="Doctor's name" formControlName="doctor">
       </mat-form-field>
+
       <mat-form-field>
         <mat-label> Analysis Type </mat-label>
-        <mat-select formControlName="analysisType" multiselect>
+        <mat-select formControlName="analysisType" multiple>
           <mat-option value="urine"> Urine </mat-option>
           <mat-option value="stool"> Stool </mat-option>
           <mat-option value="venipuncture">Venipuncture</mat-option>
         </mat-select>
       </mat-form-field>
+
       <mat-form-field>
         <input matInput placeholder="Enter facility" formControlName="facility">
       </mat-form-field>
+
       <mat-form-field>
         <input matInput placeholder="Choose Location" formControlName="location">
       </mat-form-field>
+
       <mat-form-field>
-        <input matInput placeholder="Choose Equipment" formControlName="equipment">
+        <mat-label> Equipment </mat-label>
+        <mat-select formControlName="equipment" multiple>
+          <mat-option *ngFor="let entity of (equipmentList | async)" [value]="entity.value"> {{ entity.title }} </mat-option>
+        </mat-select>
       </mat-form-field>
     </form>
     <div class="order-creation-controls">
