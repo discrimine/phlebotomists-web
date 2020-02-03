@@ -32,7 +32,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public createOrder(): void {
     this.subscriptions.push(
       this.dialog.open(CreateOrderDialogComponent, {
-        data: {}
+        width: '600px',
+        data: {},
       }).afterClosed().pipe(take(1))
         .subscribe(result => {
           console.log('The dialog was closed', result);
@@ -45,7 +46,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       if (subscription) {
         subscription.unsubscribe();
       }
-    })
+    });
   }
 
 }
