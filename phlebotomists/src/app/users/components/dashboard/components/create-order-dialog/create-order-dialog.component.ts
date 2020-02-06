@@ -1,12 +1,15 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription, BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { UsersService } from 'src/app/users/services/users.service';
+import { OrdersService } from './../../services/orders.service';
+import { SearchFacilityDialogComponent } from '../search-facility-dialog/search-facility-dialog.component';
 
 import { MatSelectList } from 'src/app/core/interfaces/angular-material.interfaces';
-import { UsersService } from 'src/app/users/services/users.service';
-import { map } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-order-dialog',
@@ -16,7 +19,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class CreateOrderDialogComponent implements OnInit, OnDestroy {
 
   public order: FormGroup;
-  public equipmentList: BehaviorSubject<MatSelectList<String>[]>;
+  public equipmentList: BehaviorSubject<MatSelectList<string>[]>;
 
   private subscriptions: Subscription[];
 
@@ -26,26 +29,52 @@ export class CreateOrderDialogComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
     private usersService: UsersService,
+    private dialog: MatDialog,
+    private ordersService: OrdersService,
   ) {
     this.order = this.formBuilder.group({
-      doctor: ['', Validators.required],
+      doctor: [{value: 'Doctor 1', disabled: true}],
       analysisType: ['', Validators.required],
       patients: [[]],
-      facility: ['', Validators.required],
-      location: ['', Validators.required],
       equipment: [[]],
+      address: [{value: '', disabled: true}, Validators.required],
+      location: [{}],
     });
     this.subscriptions = [];
     this.equipmentList = new BehaviorSubject([]);
     this.initEquipmentList();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
 
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription: Subscription) => {
+      if (subscription) {
+        subscription.unsubscribe();
+      }
+    });
+    this.equipmentList.complete();
+  }
+
+  public openSearchFacilityDialog(): void {
+    this.subscriptions.push(
+      this.dialog.open(SearchFacilityDialogComponent, {
+      })
+        .afterClosed()
+        .subscribe((data: any): void => {
+          this.order.patchValue({address: data.address});
+          this.order.patchValue({location: data.location});
+        })
+    );
+  }
+
   public submitOrder(): void {
-    console.log(this.order.getRawValue());
+    const orders = this.ordersService.getOrders();
+    orders.new.push(this.order.getRawValue());
+    this.ordersService.setOrders(orders);
+    this.dialogRef.close();
   }
 
   private catchErr(error): void {

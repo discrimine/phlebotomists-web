@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Order } from '../../interfaces/dashboard.interfaces';
-import { ColDef } from "ag-grid-community";
+import { ColDef } from 'ag-grid-community';
 
 @Component({
   selector: 'app-orders',
@@ -16,14 +16,13 @@ export class OrdersComponent implements OnInit {
       headerName: 'Analisys Type',
       field: 'analisysType',
       editable: true,
-
     }, {
       headerName: 'Patients',
       field: 'patients',
       editable: true,
     }, {
-      headerName: 'Facility',
-      field: 'facility',
+      headerName: 'Address',
+      field: 'address',
       editable: true,
     }, {
       headerName: 'Equipment',

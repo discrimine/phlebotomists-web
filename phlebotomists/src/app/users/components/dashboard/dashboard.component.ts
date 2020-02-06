@@ -25,6 +25,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit() {
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription: Subscription) => {
+      if (subscription) {
+        subscription.unsubscribe();
+      }
+    });
+  }
+
   public logout(): void {
     this.router.navigate(['/signin']);
   }
@@ -39,14 +47,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
           console.log('The dialog was closed', result);
         })
     );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription: Subscription) => {
-      if (subscription) {
-        subscription.unsubscribe();
-      }
-    });
   }
 
 }

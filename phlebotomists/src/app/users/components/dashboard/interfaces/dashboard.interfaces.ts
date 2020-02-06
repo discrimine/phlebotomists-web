@@ -1,7 +1,7 @@
 export interface Order {
-  analisysType: 'urine' | 'stool' | 'venipuncture';
+  analisysType: string[];
   patients: string[];
-  facility: string;
+  address: string;
   location: string;
   equipment: string[];
 }

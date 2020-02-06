@@ -16,23 +16,23 @@
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput placeholder="Enter facility" formControlName="facility">
-      </mat-form-field>
-
-      <mat-form-field>
-        <input matInput placeholder="Choose Location" formControlName="location">
-      </mat-form-field>
-
-      <mat-form-field>
         <mat-label> Equipment </mat-label>
         <mat-select formControlName="equipment" multiple>
-          <mat-option *ngFor="let entity of (equipmentList | async)" [value]="entity.value"> {{ entity.title }} </mat-option>
+          <mat-option *ngFor="let entity of (equipmentList | async)" [value]="entity.title"> {{ entity.title }} </mat-option>
         </mat-select>
       </mat-form-field>
+      
+      <div class="address-input-wrapper">
+        <mat-form-field>
+          <input matInput placeholder="Choose location" formControlName="address">
+        </mat-form-field>
+        <img src="https://img.icons8.com/metro/26/000000/search.png" (click)="openSearchFacilityDialog()">
+      </div>
+     
     </form>
     <div class="order-creation-controls">
       <button mat-button (click)="dialogRef.close()"> Cancel </button>
-      <button mat-button (click)="submitOrder()"> Submit </button>
+      <button mat-button (click)="submitOrder()"> Add </button>
     </div>
   </div>
 </div>

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-import { User } from '../interfaces/user.interface';
-import { MatSelectList } from 'src/app/core/interfaces/angular-material.interfaces';
+import { User } from '../interfaces/user.interfaces';
+import { MatSelectList } from '../../core/interfaces/angular-material.interfaces';
 
 @Injectable({
   providedIn: 'root'
