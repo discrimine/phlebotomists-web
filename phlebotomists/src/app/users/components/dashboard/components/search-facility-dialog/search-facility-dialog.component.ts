@@ -1,6 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
 import { MatDialogRef } from '@angular/material/dialog';
+
+import { google } from '@agm/core/services/google-maps-types';
 
 @Component({
   selector: 'app-search-facility-dialog',
@@ -12,10 +14,10 @@ export class SearchFacilityDialogComponent implements OnInit {
   @ViewChild('search')
   public searchElementRef: ElementRef;
 
-  latitude: number;
-  longitude: number;
-  zoom: number;
-  address: string;
+  public latitude: number;
+  public longitude: number;
+  public zoom: number;
+  public address: string;
   private geoCoder;
 
   constructor(
@@ -47,8 +49,23 @@ export class SearchFacilityDialogComponent implements OnInit {
     });
   }
 
-  // Get Current Location Coordinates
-  private setCurrentLocation() {
+  public submitLocation(): void {
+    this.dialogRef.close({
+      address: this.address,
+      location: {
+        latitude: this.latitude,
+        longitude: this.longitude,
+      }
+    });
+  }
+
+  public markerDragEnd($event: MouseEvent | any) {
+    this.latitude = $event.coords.lat;
+    this.longitude = $event.coords.lng;
+    this.getAddress(this.latitude, this.longitude);
+  }
+
+  private setCurrentLocation(): void {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.latitude = position.coords.latitude;
@@ -59,13 +76,7 @@ export class SearchFacilityDialogComponent implements OnInit {
     }
   }
 
-  markerDragEnd($event: MouseEvent | any) {
-    this.latitude = $event.coords.lat;
-    this.longitude = $event.coords.lng;
-    this.getAddress(this.latitude, this.longitude);
-  }
-
-  getAddress(latitude, longitude) {
+  private getAddress(latitude, longitude) {
     this.geoCoder.geocode({ location: { lat: latitude, lng: longitude } }, (results, status) => {
       if (status === 'OK') {
         if (results[0]) {
@@ -78,16 +89,6 @@ export class SearchFacilityDialogComponent implements OnInit {
         window.alert('Geocoder failed due to: ' + status);
       }
 
-    });
-  }
-
-  public submitLocation(): void {
-    this.dialogRef.close({
-      address: this.address,
-      location: {
-        latitude: this.latitude,
-        longitude: this.longitude,
-      }
     });
   }
 
