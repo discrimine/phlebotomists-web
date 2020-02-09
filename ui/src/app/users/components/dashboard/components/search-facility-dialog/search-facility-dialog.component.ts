@@ -2,8 +2,6 @@ import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core'
 import { MapsAPILoader } from '@agm/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
-import { google } from '@agm/core/services/google-maps-types';
-
 @Component({
   selector: 'app-search-facility-dialog',
   templateUrl: './search-facility-dialog.component.html',
