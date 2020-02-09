@@ -38,6 +38,15 @@ export class SignupComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription: Subscription) => {
+      if (subscription) {
+        subscription.unsubscribe();
+      }
+    });
+    this.equipmentList.complete();
+  }
+
   public signUp(): void {
     console.log(this.newUserInfo.getRawValue());
   }
@@ -59,15 +68,6 @@ export class SignupComponent implements OnInit, OnDestroy {
         },
         (error: HttpErrorResponse) => this.catchErr(error),
       ));
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription: Subscription) => {
-      if (subscription) {
-        subscription.unsubscribe();
-      }
-    });
-    this.equipmentList.complete();
   }
 
 }

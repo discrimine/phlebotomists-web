@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { UsersService } from '../../services/users.service';
+import { LoggedUserService } from './../../services/logged-user.service';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class SigninComponent implements OnInit {
     private usersService: UsersService,
     private formBuilder: FormBuilder,
     private router: Router,
+    private loggedUserService: LoggedUserService,
   ) {
     this.user = this.formBuilder.group({
       login: ['', Validators.required],
@@ -31,6 +33,7 @@ export class SigninComponent implements OnInit {
   public signIn(): void {
     const loginInfo = this.usersService.signIn(this.user.get('login').value, this.user.get('password').value);
     if (loginInfo) {
+      this.loggedUserService.setUser(this.user.getRawValue());
       this.router.navigate(['dashboard']);
     }
   }

@@ -1,0 +1,36 @@
+<!-- app.component.html -->
+<div class="container">
+ 
+  <h1> Choose location </h1>
+ 
+  <div class="form-group">
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        class="form-control"
+        (keydown.enter)="$event.preventDefault()"
+        placeholder="Enter adress"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="off"
+        #search>
+      </mat-form-field>
+  </div>
+ 
+  <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+    <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+      (dragEnd)="markerDragEnd($event)"></agm-marker>
+  </agm-map>
+ 
+  <div class="location-service">
+    <div class="location-service_info">
+      <h5>Address: {{address}}</h5>
+    </div>
+    <div class="location-service_controls">
+      <button mat-button (click)="dialogRef.close()"> Cancel </button>
+      <button mat-button (click)="submitLocation()"> Submit </button>
+    </div>
+  </div>
+</div>
+ 
