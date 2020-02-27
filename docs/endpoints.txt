@@ -1,0 +1,35 @@
+u - table users, d - table doctors
+
+POST
+endpoint: doctor/register
+fields: {
+  email: string, u
+  password: string, u,
+  long_name: string, d,
+  phone: string, d,
+  specialty: string, d,
+  license: string, d,
+}
+
+GET
+endpoint: doctors
+fields: [
+  doctors // from doctor's table
+]
+
+PUT
+endpoint: user/:id/status
+fields: {
+  status: boolean // 1/0,
+}
+
+POST
+endpoint: login
+fields: {
+  email, password
+}
+response: {
+  user: {
+    role
+  }
+}
