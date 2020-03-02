@@ -7,6 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AgGridModule } from 'ag-grid-angular';
 
 @NgModule({
@@ -22,6 +24,8 @@ import { AgGridModule } from 'ag-grid-angular';
     MatSelectModule,
     MatDialogModule,
     MatTabsModule,
+    MatCheckboxModule,
+    MatSnackBarModule,
     AgGridModule,
   ]
 })

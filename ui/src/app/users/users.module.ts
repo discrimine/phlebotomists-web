@@ -13,6 +13,7 @@ import { SigninComponent } from './components/signin/signin.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { CreateOrderDialogComponent } from './components/dashboard/components/create-order-dialog/create-order-dialog.component';
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { CreateOrderDialogComponent } from './components/dashboard/components/cr
     UsersRoutingModule,
     FormsModule,
     DashboardModule,
+    HttpClientModule,
   ],
   providers: [
     UsersService,

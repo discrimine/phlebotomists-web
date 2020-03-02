@@ -1,46 +1,30 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { Observable, of } from 'rxjs';
 
 import { User } from '../interfaces/user.interfaces';
 import { MatSelectList } from '../../core/interfaces/angular-material.interfaces';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
 
-  private users: User[] = [
-    {
-      id: '1',
-      login: '1',
-      name: 'andriy',
-      email: 'andriy.com',
-      password: '1',
-    },
-    {
-      id: '2',
-      login: '2',
-      name: 'sasha',
-      email: 'sasha.com',
-      password: '2',
-    },
-    {
-      id: '3',
-      login: '3',
-      name: 'petro',
-      email: 'petro.com',
-      password: '3',
-    },
-  ];
-
-  constructor() {
+  constructor(
+    private http: HttpClient,
+    private flashMessage: MatSnackBar,
+  ) {
 
   }
 
-  public signIn(login: string, password: string) {
-    return this.users.find((user: User) => {
-      return user.login === login && user.password === password;
-    });
+  public signIn(email: string, password: string) {
+    const body = new FormData();
+    body.append('email', email);
+    body.append('password', password);
+    return this.http.post('http://127.0.0.1:8000/api/login', body);
   }
 
   public getUser(id: number): Observable<User> {
@@ -64,35 +48,14 @@ export class UsersService {
   }
 
   public getEquipmentList(): Observable<MatSelectList<string>[]> {
-    return of([
-      {
-        title: 'stethoscope',
-        value: '6',
-      },
-      {
-        title: 'bandage',
-        value: '7',
-      },
-      {
-        title: 'syringe 1mm',
-        value: '1',
-      },
-      {
-        title: 'syringe 2mm',
-        value: '2',
-      },
-      {
-        title: 'syringe 5mm',
-        value: '3',
-      },
-      {
-        title: 'gloves',
-        value: '4',
-      },
-      {
-        title: 'ice',
-        value: '5',
-      },
-    ]);
+    return of([]);
+  }
+
+  public errorHandler(err: HttpErrorResponse) {
+    const errorMessage = err.error.error || 'Unexpected error, try again later';
+    this.flashMessage.open(errorMessage, 'Close', {
+      duration: 2000,
+      verticalPosition: 'top',
+    })
   }
 }

@@ -71,10 +71,7 @@ export class CreateOrderDialogComponent implements OnInit, OnDestroy {
   }
 
   public submitOrder(): void {
-    const orders = this.ordersService.getOrders();
-    orders.new.push(this.order.getRawValue());
-    this.ordersService.setOrders(orders);
-    this.dialogRef.close();
+    this.dialogRef.close(this.order.getRawValue());
   }
 
   private catchErr(error): void {

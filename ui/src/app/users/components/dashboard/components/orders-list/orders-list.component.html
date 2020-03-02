@@ -1,11 +1,21 @@
 <mat-tab-group>
+
   <mat-tab label="New">
     <app-orders [orders]="orders.new"></app-orders>
   </mat-tab>
+
   <mat-tab label="In progress">
     <app-orders [orders]="orders.in_progress"></app-orders>
   </mat-tab>
+
   <mat-tab label="Complete">
     <app-orders [orders]="orders.completed"></app-orders>
   </mat-tab>
+
+  <mat-tab disabled>
+    <ng-template mat-tab-label>
+      <button mat-button (click)="createOrder()" > Create new order </button>
+    </ng-template>
+  </mat-tab>
+
 </mat-tab-group>
