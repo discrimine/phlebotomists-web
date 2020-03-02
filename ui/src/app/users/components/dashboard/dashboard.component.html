@@ -1,11 +1,11 @@
 <div class="page-inner">
   <div class="menu">
-    <div class="menu_left">
+    <div [ngSwitch]="user?.role" class="menu_left">
         <button mat-button routerLink="account-info"> My account </button>
-        <button mat-button routerLink="orders-list"> Orders </button>
+        <button *ngSwitchCase="'doctor'" mat-button routerLink="orders-list"> Orders </button>
+        <button *ngSwitchCase="'admin'" mat-button routerLink="doctors-list"> Doctors </button>
     </div>
     <div class="menu_right">
-      <button mat-button (click)="createOrder()" > Create new order </button>
       <button mat-button (click)="logout()"> Logout </button>
     </div>
   </div>

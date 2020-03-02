@@ -12,6 +12,15 @@ fields: {
 }
 
 GET
+doctor/:id
+response: {
+  all_fields
+}
+
+PUT
+doctor/:id
+
+GET
 endpoint: doctors
 fields: [
   doctors // from doctor's table
@@ -23,6 +32,9 @@ fields: {
   status: boolean // 1/0,
 }
 
+DELETE
+endpoint: user/:id
+
 POST
 endpoint: login
 fields: {
@@ -30,6 +42,7 @@ fields: {
 }
 response: {
   user: {
-    role
+    role,
+    email,
   }
 }

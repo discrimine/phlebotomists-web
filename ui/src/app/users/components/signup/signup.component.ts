@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -14,7 +13,6 @@ import { MatSelectList } from './../../../core/interfaces/angular-material.inter
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit, OnDestroy {
-
   public equipmentList: BehaviorSubject<MatSelectList<string>[]>;
   public newUserInfo: FormGroup;
   private subscriptions: Subscription[];
@@ -27,11 +25,12 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.subscriptions = [];
     this.initEquipmentList();
     this.newUserInfo = this.formBuilder.group({
-      login: ['', Validators.required],
-      password: ['', Validators.required],
-      name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      equipment: [[], Validators.required],
+      password: ['', Validators.required],
+      long_name: ['', Validators.required],
+      phone: ['', Validators.required],
+      specialty: ['', Validators.required],
+      license: ['', Validators.required],
     });
   }
 
@@ -48,11 +47,12 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   public signUp(): void {
-    console.log(this.newUserInfo.getRawValue());
-  }
-
-  private catchErr(error): void {
-    console.log(error);
+    this.subscriptions.push(
+      this.usersService.signUp({ ...this.newUserInfo.getRawValue() })
+        .subscribe(() => {
+        //TODO: redirect, and other signup's staff
+        }))
+    ;
   }
 
   private initEquipmentList(): void {
@@ -66,7 +66,6 @@ export class SignupComponent implements OnInit, OnDestroy {
         (equipmentList: MatSelectList<string>[]): void => {
           this.equipmentList.next(equipmentList);
         },
-        (error: HttpErrorResponse) => this.catchErr(error),
       ));
   }
 

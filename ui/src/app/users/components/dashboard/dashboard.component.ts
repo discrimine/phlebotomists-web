@@ -1,52 +1,43 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { CreateOrderDialogComponent } from './components/create-order-dialog/create-order-dialog.component';
+
+import { LoggedUserService } from '../../services/logged-user.service';
+import { User } from '../../interfaces/user.interfaces';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class DashboardComponent implements OnInit {
 
-  private subscriptions: Subscription[];
+  public user: User;
 
   constructor(
     private router: Router,
-    private dialog: MatDialog
+    private loggedUserService: LoggedUserService,
+    private flashMessage: MatSnackBar,
   ) {
-    this.subscriptions = [];
+    this.initUser();
   }
 
-  ngOnInit() {
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription: Subscription) => {
-      if (subscription) {
-        subscription.unsubscribe();
-      }
-    });
-  }
+  ngOnInit(): void {}
 
   public logout(): void {
     this.router.navigate(['/signin']);
   }
 
-  public createOrder(): void {
-    this.subscriptions.push(
-      this.dialog.open(CreateOrderDialogComponent, {
-        width: '600px',
-        data: {},
-      }).afterClosed().pipe(take(1))
-        .subscribe(result => {
-          console.log('The dialog was closed', result);
-        })
-    );
-  }
+  private initUser(): void {
+    this.user = this.loggedUserService.getUser();
 
+    if (!this.user) {
+      this.flashMessage.open('You are not logged', 'Close', { duration: 1000, verticalPosition: 'top' })
+       .afterDismissed()
+       .pipe(take(1))
+       .subscribe(() => this.logout());
+    }
+  }
 }

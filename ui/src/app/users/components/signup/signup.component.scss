@@ -1,23 +1,30 @@
 .signup-form {
   display: flex;
   flex-direction: column;
-
-  width: 200px;
   margin: 0 auto;
-    
-  mat-form-field {
-    display: block;
-  }
 
-  .signup-controls {
+  .form-inner {
     display: flex;
-    justify-content: space-between;;
+    flex-flow: row wrap;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
 
-    button {
-      width: 100%;
-      margin-bottom: 10px;
+    mat-form-field {
+      display: block;
+      padding: 10px;
+    }
+  
+    .signup-controls {
+      display: flex;
+      justify-content: space-between;;
+      align-items: center;
+      flex-direction: column;
+  
+      button {
+        width: 100%;
+        margin-bottom: 10px;
+      }
     }
   }
 }

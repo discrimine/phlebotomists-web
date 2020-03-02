@@ -3,6 +3,8 @@ export interface User {
   login: string;
   name: string;
   email: string;
-  // TODO: remove after BE
-  password: string;
+  role: Role,
+  token: string,
 }
+
+export type Role = 'Admin' | 'Doctor';

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { of, Observable } from 'rxjs';
 import { Order, SortedOrders } from '../interfaces/dashboard.interfaces';
 
 @Injectable({
@@ -13,19 +14,19 @@ export class OrdersService {
         new: [
           {
             analisysType: ['urine'],
-            patients: ['john black', 'Joe White'],
+            patients: ['john john', 'Joe Joe'],
             address: 'Ambulance №333',
             location: '103 105',
             equipment: ['syringe', 'ice', 'bucket'],
           }, {
             analisysType: ['urine'],
-            patients: ['john black', 'Joe White'],
+            patients: ['john john', 'Joe Joe'],
             address: 'Ambulance №333',
             location: '103 105',
             equipment: ['syringe', 'ice', 'bucket'],
           }, {
             analisysType: ['urine'],
-            patients: ['john black', 'Joe White'],
+            patients: ['john john', 'Joe Joe'],
             address: 'Ambulance №333',
             location: '103 105',
             equipment: ['syringe', 'ice', 'bucket'],
@@ -34,19 +35,19 @@ export class OrdersService {
         in_progress: [
           {
             analisysType: ['urine'],
-            patients: ['john black', 'Joe White'],
+            patients: ['john john', 'Joe Joe'],
             address: 'Ambulance №322',
             location: '103 105',
             equipment: ['syringe', 'ice', 'bucket'],
           }, {
             analisysType: ['urine'],
-            patients: ['john black', 'Joe White'],
+            patients: ['john john', 'Joe Joe'],
             address: 'Ambulance №322',
             location: '103 105',
             equipment: ['syringe', 'ice', 'bucket'],
           }, {
             analisysType: ['urine'],
-            patients: ['john black', 'Joe White'],
+            patients: ['john john', 'Joe Joe'],
             address: 'Ambulance №322',
             location: '103 105',
             equipment: ['syringe', 'ice', 'bucket'],
@@ -55,19 +56,19 @@ export class OrdersService {
         completed: [
           {
             analisysType: ['urine'],
-            patients: ['john black', 'Joe White'],
+            patients: ['john john', 'Joe Joe'],
             address: 'Ambulance №311',
             location: '103 105',
             equipment: ['syringe', 'ice', 'bucket'],
           }, {
             analisysType: ['urine'],
-            patients: ['john black', 'Joe White'],
+            patients: ['john john', 'Joe Joe'],
             address: 'Ambulance №311',
             location: '103 105',
             equipment: ['syringe', 'ice', 'bucket'],
           }, {
             analisysType: ['urine'],
-            patients: ['john black', 'Joe White'],
+            patients: ['john john', 'Joe Joe'],
             address: 'Ambulance №311',
             location: '103 105',
             equipment: ['syringe', 'ice', 'bucket'],
@@ -83,5 +84,10 @@ export class OrdersService {
 
   public setOrders(orders: SortedOrders): void {
     this.orders = orders;
+  }
+
+  public addNewOrder(order: Order): Observable<SortedOrders> {
+    this.orders.new.push(order);
+    return of(this.orders);
   }
 }

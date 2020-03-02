@@ -10,6 +10,7 @@ import { AccountInfoComponent } from './components/account-info/account-info.com
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { OrdersComponent } from './components/orders/orders.component';
 import { SearchFacilityDialogComponent } from './components/search-facility-dialog/search-facility-dialog.component';
+import { DoctorsListComponent } from './components/doctors-list/doctors-list.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { SearchFacilityDialogComponent } from './components/search-facility-dial
     AccountInfoComponent,
     OrdersComponent,
     SearchFacilityDialogComponent,
+    DoctorsListComponent,
   ],
   imports: [
     CommonModule,

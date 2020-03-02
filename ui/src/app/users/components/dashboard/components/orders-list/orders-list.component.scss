@@ -1,0 +1,9 @@
+// Workaround for button behind tab labels
+:host::ng-deep {
+  
+  .mat-tab-disabled {
+    color: unset;
+    position: absolute;
+    right: 0;
+  }
+}

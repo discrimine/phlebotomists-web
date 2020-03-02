@@ -1,28 +1,33 @@
 <div class="signup-form">
   <h2 align="center">Sign up</h2>
   <form [formGroup]="newUserInfo">
-    <mat-form-field>
-      <input matInput placeholder="Enter your login" formControlName="login" name="login">
-    </mat-form-field>
-  
-    <mat-form-field>
-      <input matInput placeholder="Enter your password" formControlName="password" type="password" name="password">
-    </mat-form-field>
-  
-    <mat-form-field>
-      <input matInput placeholder="Enter your name" formControlName="name" name="name">
-    </mat-form-field>
-  
-    <mat-form-field>
-      <input matInput placeholder="Enter your email" formControlName="email" name="email">
-    </mat-form-field>
-  
-    <mat-form-field>
-      <mat-label>Equipment</mat-label>
-      <mat-select formControlName="equipment" multiple>
-        <mat-option *ngFor="let equipment of (equipmentList | async)" [value]="equipment.value">{{equipment.title}}</mat-option>
-      </mat-select>
-    </mat-form-field>
+    <div class="form-inner">
+
+      <mat-form-field>
+        <input matInput placeholder="Email" formControlName="email" name="email">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Password" formControlName="password" name="password">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Full name" formControlName="long_name" name="longName">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Phone" formControlName="phone" name="phone">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Specialty" formControlName="specialty" name="specialty">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Licence" formControlName="license" name="license">
+      </mat-form-field>
+
+    </div>
   </form>
   <div class="signup-controls">
     <button mat-button (click)="signUp()"> Sign up </button>
