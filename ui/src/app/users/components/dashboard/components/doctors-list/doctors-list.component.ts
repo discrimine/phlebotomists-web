@@ -1,7 +1,9 @@
+import { Component, OnInit, OnDestroy } from '@angular/core';
+
+import { Subscription } from 'rxjs';
+import { ColDef } from 'ag-grid-community';
+
 import { UsersService } from 'src/app/users/services/users.service';
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { ColDef } from "ag-grid-community";
 import { LoggedUserService } from 'src/app/users/services/logged-user.service';
 
 @Component({
@@ -9,10 +11,9 @@ import { LoggedUserService } from 'src/app/users/services/logged-user.service';
   templateUrl: './doctors-list.component.html',
   styleUrls: ['./doctors-list.component.scss']
 })
-export class DoctorsListComponent implements OnInit {
+export class DoctorsListComponent implements OnInit, OnDestroy {
 
-  public doctors;
-
+  public doctors: any;
   public columnDefs: ColDef[] = [
     {
       headerName: 'Phone number',
@@ -33,19 +34,30 @@ export class DoctorsListComponent implements OnInit {
     }
   ];
 
+  private subscriptions: Subscription[];
+
   constructor(
-    private http: HttpClient,
     private usersService: UsersService,
     private loggedUserService: LoggedUserService,
-  ) { }
+  ) {
+    this.subscriptions = [];
+  }
 
-  ngOnInit() {
-    //console.log
-    this.http.get('http://127.0.0.1:8000/api/doctors?token='+this.loggedUserService.getUser().token)
-      .subscribe((data) => {
-        console.log(data);
+  ngOnInit(): void {
+    this.subscriptions.push(
+      this.usersService.getDoctorsList(this.loggedUserService.getUser().token)
+      .subscribe((data: any) => {
         this.doctors = data;
       })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription: Subscription) => {
+      if (subscription) {
+        subscription.unsubscribe();
+      }
+    });
   }
 
 }

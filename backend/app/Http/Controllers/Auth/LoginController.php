@@ -89,13 +89,13 @@ class LoginController extends Controller
             ], 500);
         }
 
-//        $previous_session = Auth::user()->session_id ? Auth::user()->session_id : '';
-//        if ($previous_session) {
-//            Session::getHandler()->destroy($previous_session);
-//        }
-//
-//        Auth::user()->session_id = Session::getId();
-//        Auth::user()->update();
+       $previous_session = Auth::user()->session_id ? Auth::user()->session_id : '';
+       if ($previous_session) {
+           Session::getHandler()->destroy($previous_session);
+       }
+
+       Auth::user()->session_id = Session::getId();
+       Auth::user()->update();
 
         $user = $this->auth->user();
         $role = $this->auth->user()->isRole();

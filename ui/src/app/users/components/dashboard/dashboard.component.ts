@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+import { take } from 'rxjs/operators';
+
 import { LoggedUserService } from '../../services/logged-user.service';
 import { User } from '../../interfaces/user.interfaces';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,9 +24,7 @@ export class DashboardComponent implements OnInit {
     this.initUser();
   }
 
-  ngOnInit(): void {
-   
-  }
+  ngOnInit(): void {}
 
   public logout(): void {
     this.router.navigate(['/signin']);
@@ -35,10 +34,10 @@ export class DashboardComponent implements OnInit {
     this.user = this.loggedUserService.getUser();
 
     if (!this.user) {
-      this.flashMessage.open('You are not logged', 'Close', { duration: 1000 })
+      this.flashMessage.open('You are not logged', 'Close', { duration: 1000, verticalPosition: 'top' })
        .afterDismissed()
        .pipe(take(1))
-       .subscribe(() => this.logout())
+       .subscribe(() => this.logout());
     }
   }
 }

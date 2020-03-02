@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { Subscription, BehaviorSubject } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { OrdersService } from '../../services/orders.service';
@@ -45,6 +45,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       .subscribe((result: Order) => {
         this.subscriptions.push(this.ordersService.addNewOrder(result)
           .subscribe((newOrders) => {
+            // TODO: backend integration
             this.orders = newOrders;
             this.orders.new = newOrders.new;
           })

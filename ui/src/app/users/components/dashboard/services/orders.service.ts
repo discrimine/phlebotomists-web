@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { of, Observable } from 'rxjs';
 import { Order, SortedOrders } from '../interfaces/dashboard.interfaces';
-import { of, Observable } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
