@@ -89,6 +89,12 @@ class LoginController extends Controller
             ], 500);
         }
 
+        if(Auth::user()->status != 1){
+            return response()->json([
+                'error' => "You haven't access"
+            ], 401);
+        }
+
        $previous_session = Auth::user()->session_id ? Auth::user()->session_id : '';
        if ($previous_session) {
            Session::getHandler()->destroy($previous_session);
@@ -97,9 +103,15 @@ class LoginController extends Controller
        Auth::user()->session_id = Session::getId();
        Auth::user()->update();
 
-        $user = $this->auth->user();
+        $user = $this->auth->user()->first();
         $role = $this->auth->user()->isRole();
+        $email = $this->auth->user()->email;
+
+        if($this->auth->user()->isDoctor())
+            $user = $this->auth->user()->doctors()->first();
+
         $user['role'] = $role;
+        $user['email'] = $email;
 
         return response()->json([
             'success' => true,

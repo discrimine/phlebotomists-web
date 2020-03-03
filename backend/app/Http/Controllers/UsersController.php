@@ -97,15 +97,37 @@ class UsersController extends Controller
 
     public  function update(Request $request, $id) {
         $user = User::find($id);
-        $user->update($request->all());
+        $message = 'User has been updated';
+        if(isset($request['status'])){
+            $user->status = $request['status'];
+            $message = 'Status has been updated';
+        } else {
+            $user->update($request->all());
+        }
 
-        return $user;
+        try{
+            $user->update();
+            return response()->json([
+                'success' => true,
+                'data' => $user,
+                'message' => $message
+            ], 200);
+        } catch (Exception $e){
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong'
+            ], 500);
+        }
+
     }
 
     public  function delete($id) {
         $user = User::find($id);
         $user->delete();
 
-        return 204;
+        return response()->json([
+            'success' => true,
+            'message' => "User has been deleted"
+        ], 204);
     }
 }
